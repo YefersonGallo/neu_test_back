@@ -14,7 +14,7 @@ class Connection:
     cur = conn.cursor()
 
     def get_population_by_city(self, name):
-        self.cur.execute("SELECT population, trim(name) from location WHERE name='" + name + "'")
+        self.cur.execute("SELECT population, trim(name) from location WHERE name=$$" + name + "$$")
         rows = self.cur.fetchall()
         names = {}
         for row in rows:
@@ -22,8 +22,13 @@ class Connection:
             names["population"] = row[1]
         return names
 
-    def get_population_by_state(self, name):
-        self.cur.execute("SELECT id_state from location WHERE name='" + name + "'")
+    def get_population_by_state(self, name, country=None):
+        if country:
+            self.cur.execute(
+                "SELECT id_state from location WHERE name = $$" + name + "$$ AND country_id = " + country + "")
+        else:
+            self.cur.execute(
+                "SELECT id_state from location WHERE name = $$" + name + "$$")
         rows = self.cur.fetchall()
         state = []
         names = {}
@@ -36,7 +41,7 @@ class Connection:
         return names
 
     def get_population_by_country(self, name):
-        self.cur.execute("SELECT id_country from location WHERE name='" + name + "'")
+        self.cur.execute("SELECT id_country from location WHERE name=$$" + name + "$$")
         rows = self.cur.fetchall()
         country = []
         names = {}
@@ -46,5 +51,5 @@ class Connection:
         rows_names = self.cur.fetchall()
         for i, row in enumerate(rows_names):
             names["state_" + str(i)] = {"state": str(row[0]),
-                                        "cities": self.get_population_by_state(str(row[0]))}
+                                        "cities": self.get_population_by_state(str(row[0]), str(country[0]))}
         return names
