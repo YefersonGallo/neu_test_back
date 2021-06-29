@@ -2,6 +2,7 @@ import psycopg2
 
 
 class Connection:
+    '''Verificar el nombre de usuario y contraseña, además del nombre de la base de datos creada'''
     conn = psycopg2.connect(
         host="localhost",
         database="neu_test",
