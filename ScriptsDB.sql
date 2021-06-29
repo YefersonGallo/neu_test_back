@@ -19,6 +19,7 @@ CREATE TABLE location (
 
 /**
   SCRIPT PARA AGREGAR LOS DATOS DE UN ARCHIVO .CSV, VERIFICAR LA RUTA DEL ARCHIVO, SEGÚN LA UBICACIÓN
+  Se adjuntan los archivos, pues se hae modificación de extensión además de encoder
  */
 
 COPY location(id_country, name)
