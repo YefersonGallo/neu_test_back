@@ -2,6 +2,10 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from database import Connection
 
+'''
+Verificar la intalación de las dependencia necesarias en requirements.txt
+'''
+
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 
